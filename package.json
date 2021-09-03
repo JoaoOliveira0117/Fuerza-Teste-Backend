@@ -1,0 +1,22 @@
+{
+  "name": "node-challenge-dev-growdev-main",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "repository": "git@github.com:JoaoOliveira0117/Fuerza-Teste-Backend.git",
+  "author": "JoaoOliveira0117 <joao.oliveira0117@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ./src/app",
+    "start": "node ./src/app"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.4",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.7"
+  }
+}
