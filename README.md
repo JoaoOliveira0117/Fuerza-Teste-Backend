@@ -1,90 +1,58 @@
-# Backend Challenge
+# NodeJS Simple API + Authentication
 
-The project is a simple challenge to test your skills in building APIs using the Node.js framework.
+This simple API was made using nodeJS, express, MondoDB for database and JWT for Authentication.
+Test units are included and made using Mocha + Chai.
+Documentation is made with Swagger API.
 
-### Submission
+## Documentation
+All documentation is already included on a Swagger page when the API is running, To access it, first you need to start the API.
+Then, you can read the documentation by the url below:
 
-- [ ] Read the description, requirements, and the others instructions
+    http://localhost:3000/api-docs/
 
-### What to do
 
-- Create a simple API to manage the system of posts (CRUD).
 
-**This API should allow to:**
 
-| Method | Name | Route |
-| ------ | ------ | ------ |
-| POST | Create Post | /api/posts |
-| GET | Listing Posts | /api/posts |
-| GET | Get Post By ID | /api/posts/:id |
-| PUT | Edit Post | /api/posts/:id |
-| DELETE | Delete Post | /api/posts/:id |
+## How to download local and build Simple API?
+### 1) Clone the API repository
 
-**The post must have the following fields:**
+    git clone https://github.com/JoaoOliveira0117/Fuerza-Teste-Backend 
+    cd Fuerza-Teste-Backend
+### 2) Install node dependencies
+#### Npm:
 
-| Field | Type |
-| ------ | ------ |
-| id | UUID |
-| title | string |
-| body | string |
-| tags | string[] |
+    npm install
 
-### Requirements
+#### Yarn:
 
-- [ ] All API responses must be in JSON format.
-- [ ] Add pagination on the API for the listing of the posts
-- [ ] Provide the unit testing for all routes using Mocha and Chai or your preferred testing framework.
-- [ ] Provide documentation for all routes, we preferer using Swagger API, but you can using README for documentation.
-- [ ] Provide a README file with usage instructions (how to the runs, considerations, etc...).
-- [ ] Use naming written as camelCase by convention.
+    yarn
 
-#### - **The folders structures of the project should be following the example below.**
 
-```sh
-├── src
-│   ├── controllers
-│   │   └── posts
-│   ├── helpers
-│   │   └── utils.js
-│   ├── models
-│   │   └── post.js
-│   ├── routes
-│   │   └── api
-│   │       ├── posts.js
-│   │       └── index.js
-│   └── app.js
-├── test
-│   └── posts
-├── .editorconfig
-├── .gitignore
-├── package.json
-└── readme.md
-```
 
-#### Any routes should process the response in the controllers, no use function directly in the routes.
+## How to run the API?
+#### Npm : 
+Development:
 
-- See example below
+    npm run dev
 
-![basic structure](https://i.imgur.com/lyRSYj8.png)
+Production: 
 
-### Data Persistence
+    npm run start
 
-- [ ] You will need to persist the data in some way, maybe in memory.
-- [ ] You don't need to use any external data persistence (database, cache, etc.), and the easier it is for us to run it, is better.
+Run tests:
 
-### Evaluation
+    npm run test
 
-- [ ] Architecture
-- [ ] Automated tests
-- [ ] Functionalities of the APIs
-- [ ] Programming good practices
-- [ ] Project organization
-- [ ] Structure componentization
-- [ ] Clean code with camelcase pattern
+#### Yarn:
 
-### Bonus Level Up
+Development: 
 
-- [ ] Authenticated the routes using JWT
-- [ ] Process and validate the data that the API receives before creating the post.
-- [ ] Using MongoDB for storage data
-- [ ] Using Swagger API documentation
+    yarn dev
+
+Production:
+
+    yarn start
+
+Run tests:
+
+    yarn test
