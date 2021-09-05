@@ -130,6 +130,23 @@ describe('Post CRUD authorized', () => {
             });
     });
 
+    it("It should not POST a new post if title or body is empty", (done) => {
+        chai.request(app)
+            .post('/api/posts')
+            .set({ Authorization: `Bearer ${token}` })
+            .send({
+                title: "",
+                body: "",
+                tags: ["Tic","Tac","Toe"]
+            })
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.body.should.be.a("object");
+                res.body.error.should.equal(" Title and body cannot be empty ");
+                done();
+            });
+    });
+
     it("It should UPDATE an existing post", (done) => {
         chai.request(app)
             .put('/api/posts/3be05d1c-c8df-4781-a2ca-8de5c967191c')
@@ -145,6 +162,23 @@ describe('Post CRUD authorized', () => {
                 res.body.post.title.should.equal("Foo");
                 res.body.post.body.should.equal("bar");
                 res.body.post.tags.length.should.equal(3);
+                done();
+            });
+    });
+
+    it("It should not UPDATE an existing post if title or body is empty", (done) => {
+        chai.request(app)
+            .put('/api/posts/3be05d1c-c8df-4781-a2ca-8de5c967191c')
+            .set({ Authorization: `Bearer ${token}` })
+            .send({
+                title: "",
+                body: "",
+                tags: ["Tic","Tac","Toe"]
+            })
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.body.should.be.a("object");
+                res.body.error.should.equal(" Title and body cannot be empty ");
                 done();
             });
     });
@@ -176,7 +210,7 @@ describe('Post CRUD authorized', () => {
             });
     });
 
-    it("It should warn about non existing post when UPDATE is called", (done) => {
+    it("It should warn about non existing post when DELETE is called", (done) => {
         chai.request(app)
             .delete('/api/posts/b51fce04-c3f0-484c-b330-c93b275074be')
             .set({ Authorization: `Bearer ${token}` })
