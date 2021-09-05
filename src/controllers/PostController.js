@@ -12,7 +12,7 @@ class PostController {
 
             return res.send({ post });
         } catch (err) {
-            return res.status(400).send({ error: ' Could not search for posts ', err});
+            return res.status(500).send({ error: ' Could not search for posts ', err});
         }
     }
 
@@ -29,17 +29,20 @@ class PostController {
                                     
             return res.send({ posts });
         } catch (err) {
-            return res.status(400).send({ error: ' Could not search for posts ', err});
+            return res.status(500).send({ error: ' Could not search for posts ', err});
         }
     }
 
     async store(req, res) {
         try {
+            if(req.body.title === "" || req.body.body === "")
+                return res.status(400).send({ error: ' Title and body cannot be empty '})
+
             const post = await Post.create(req.body);
 
             return res.send({ post });
         } catch(err){
-            return res.status(400).send({ error: ' Could not create post ', err});
+            return res.status(500).send({ error: ' Could not create post ', err});
         }
     }
 
@@ -47,6 +50,9 @@ class PostController {
         try {
             const id = req.params.id;
             const update = req.body;
+
+            if(update.title === "" || update.body === "")
+                return res.status(400).send({ error: ' Title and body cannot be empty '})
 
             const post = await Post.findOneAndUpdate({ id }, update , {
                 new: true,
@@ -58,7 +64,7 @@ class PostController {
             return res.send({ post });
 
         } catch (err) {
-            return res.status(400).send({ error: ' Could not edit post ', err });
+            return res.status(500).send({ error: ' Could not edit post ', err });
         }
     }
 
@@ -73,7 +79,7 @@ class PostController {
 
             return res.send({ message: ' Post deleted successfully ' });
         } catch (err) {
-            return res.status(400).send({ error: ' Could not delete post ', err });
+            return res.status(500).send({ error: ' Could not delete post ', err });
         }
     }
 }

@@ -22,32 +22,36 @@ class AuthController {
             
             return res.send({ user });
         } catch (err) {
-            return res.status(400).send({ error: ' Registration failed ', err})
+            return res.status(500).send({ error: ' Registration failed ', err})
         }
     }
 
     async store(req,res) {
         const { email, password } = req.body;
 
-        if(!email || !password) //verify if data exists and is not empty.
-            return res.status(400).send({ error: ' Email and password must not be empty '})
+        try{
+            if(!email || !password) //verify if data exists and is not empty.
+                return res.status(400).send({ error: ' Email and password must not be empty '})
 
-        const user = await User.findOne({ email })
-                                .select('+password');
+            const user = await User.findOne({ email })
+                                    .select('+password');
 
-        if(!user)
-            return res.status(404).send({ error: 'User not found'});
+            if(!user)
+                return res.status(404).send({ error: 'User not found'});
 
-        if(!await bcrypt.compare(password, user.password))
-            return res.status(400).send({ error: 'Invalid password' });
+            if(!await bcrypt.compare(password, user.password))
+                return res.status(400).send({ error: 'Invalid password' });
 
-        user.password = undefined; // prevents password from appearing in the api response.
+            user.password = undefined; // prevents password from appearing in the api response.
 
-        const token = jwt.sign({ id: user.id }, authConfig.secret, {
-            expiresIn: 86400, // one day.
-        });
+            const token = jwt.sign({ id: user.id }, authConfig.secret, {
+                expiresIn: 86400, // one day.
+            });
 
-        res.send({ user, token });
+            res.send({ user, token });
+        } catch (err) {
+            return res.status(500).send({ error: ' Login failed ', err})
+        }
     }
 }
 
